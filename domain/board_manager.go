@@ -13,6 +13,7 @@ func NewBoardManager() *BoardManager {
 
 // AddTask adds a new task to the board
 func (b *BoardManager) AddTask(task, status string) {
+	b.Tasks["TODO"] = append(b.Tasks["TODO"], task)
 }
 
 // GetTasks returns the slice with the tasks defined for a specific status
