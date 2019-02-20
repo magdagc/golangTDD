@@ -104,3 +104,19 @@ func TestBoardManagerChangeStatusFromWIPToDone(t *testing.T) {
 	assert.Equal(t, boardManager.Tasks["TODO"][1], "task 2")
 	assert.Equal(t, boardManager.Tasks["DONE"][0], "task 3")
 }
+
+func TestBoardManagerRemoveTaskFromWIP(t *testing.T) {
+	boardManager := NewBoardManager()
+
+	boardManager.AddTask("task 1", "TODO")
+	boardManager.AddTask("task 2", "TODO")
+	boardManager.AddTask("task 3", "WIP")
+
+	boardManager.RemoveTask("task 3", "WIP")
+
+	assert.Equal(t, len(boardManager.Tasks), 2)
+	assert.Equal(t, len(boardManager.Tasks["TODO"]), 2)
+	assert.Equal(t, len(boardManager.Tasks["WIP"]), 0)
+	assert.Equal(t, boardManager.Tasks["TODO"][0], "task 1")
+	assert.Equal(t, boardManager.Tasks["TODO"][1], "task 2")
+}
