@@ -18,7 +18,7 @@ func (b *BoardManager) AddTask(task, status string) {
 
 // GetTasks returns the slice with the tasks defined for a specific status
 func (b *BoardManager) GetTasks(status string) []string {
-	return b.Tasks["TODO"]
+	return b.Tasks[status]
 }
 
 // ChangeStatus modifies the status of a task inside the board
