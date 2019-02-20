@@ -42,3 +42,18 @@ func TestBoardManagerGetTasksShouldGetTODOTasks(t *testing.T) {
 	assert.Equal(t, tasks[0], "task 1")
 	assert.Equal(t, tasks[1], "task 2")
 }
+
+func TestBoardManagerGetTasksShouldGetTODOAndWIPTasks(t *testing.T) {
+	boardManager := NewBoardManager()
+
+	boardManager.AddTask("task 1", "TODO")
+	boardManager.AddTask("task 2", "TODO")
+	boardManager.AddTask("task 3", "WIP")
+
+	todoTasks := boardManager.GetTasks("TODO")
+	wipTasks := boardManager.GetTasks("WIP")
+
+	assert.Equal(t, todoTasks[0], "task 1")
+	assert.Equal(t, todoTasks[1], "task 2")
+	assert.Equal(t, wipTasks[0], "task 3")
+}
