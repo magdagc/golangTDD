@@ -68,7 +68,6 @@ func main() {
 			todoTasks := boardManager.GetTasks("TODO")
 			wipTasks := boardManager.GetTasks("WIP")
 			doneTasks := boardManager.GetTasks("DONE")
-			// 30 caracteres por columna
 			board := getBoard(todoTasks, wipTasks, doneTasks)
 			c.Println(board)
 		},
