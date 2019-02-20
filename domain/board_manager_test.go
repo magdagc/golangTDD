@@ -29,3 +29,16 @@ func TestBoardManagerAddTasksShouldAddAsTODOAndWIP(t *testing.T) {
 	assert.Equal(t, boardManager.Tasks["TODO"][1], "task 2")
 	assert.Equal(t, boardManager.Tasks["WIP"][0], "task 3")
 }
+
+func TestBoardManagerGetTasksShouldGetTODOTasks(t *testing.T) {
+	boardManager := NewBoardManager()
+
+	boardManager.AddTask("task 1", "TODO")
+	boardManager.AddTask("task 2", "TODO")
+	boardManager.AddTask("task 3", "WIP")
+
+	tasks := boardManager.GetTasks("TODO")
+
+	assert.Equal(t, tasks[0], "task 1")
+	assert.Equal(t, tasks[1], "task 2")
+}
