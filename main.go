@@ -78,7 +78,10 @@ func main() {
 		Name: "remove-task",
 		Help: "Muestra el tablero con las tareas por columna",
 		Func: func(c *ishell.Context) {
-			//boardManager.RemoveTask(task,status)
+			statusIndex := c.MultiChoice(PossibleStatuses, "Status de la tarea a eliminar")
+			tasks := boardManager.GetTasks(PossibleStatuses[statusIndex])
+			taskIndex := c.MultiChoice(tasks, "Tarea a eliminar")
+			boardManager.RemoveTask(tasks[taskIndex], PossibleStatuses[statusIndex])
 		},
 	})
 
