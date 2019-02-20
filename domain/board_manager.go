@@ -39,4 +39,13 @@ func (b *BoardManager) ChangeStatus(task, originalStatus, newStatus string) {
 
 // RemoveTask removes a task from the board
 func (b *BoardManager) RemoveTask(task, status string) {
+	tasks := b.Tasks[status]
+
+	for i, taskInBoard := range tasks {
+		if taskInBoard == task {
+			tasks = append(tasks[:i], tasks[i+1:]...)
+		}
+	}
+
+	b.Tasks[status] = tasks
 }
