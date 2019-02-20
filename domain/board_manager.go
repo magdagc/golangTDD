@@ -23,3 +23,7 @@ func (b *BoardManager) GetTasks(status string) []string {
 // ChangeStatus modifies the status of a task inside the board
 func (b *BoardManager) ChangeStatus(task, originalStatus, newStatus string) {
 }
+
+// RemoveTask removes a task from the board
+func (b *BoardManager) RemoveTask(task, status string) {
+}

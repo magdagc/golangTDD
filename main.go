@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/magdagc/golangTDD/domain"
 	"gopkg.in/abiosoft/ishell.v2"
 )
@@ -27,6 +28,7 @@ func main() {
 			c.Println("Ingresar nombre de la tarea a agregar")
 			taskName := c.ReadLine()
 			boardManager.AddTask(taskName, "TODO")
+			c.Println("¡Tarea agregada con éxito!")
 		},
 	})
 
@@ -52,7 +54,10 @@ func main() {
 		Name: "setup-sample-tasks",
 		Help: "Configura tareas de ejemplo",
 		Func: func(c *ishell.Context) {
-			setupSampleTasks(boardManager)
+			boardManager = domain.NewBoardManager()
+			boardManager.AddTask("Task 1", "TODO")
+			boardManager.AddTask("Task 2", "TODO")
+			boardManager.AddTask("Task 3", "WIP")
 		},
 	})
 
@@ -60,10 +65,20 @@ func main() {
 		Name: "show-board",
 		Help: "Muestra el tablero con las tareas por columna",
 		Func: func(c *ishell.Context) {
+			todoTasks := boardManager.GetTasks("TODO")
+			wipTasks := boardManager.GetTasks("WIP")
+			doneTasks := boardManager.GetTasks("DONE")
 			// 30 caracteres por columna
-			c.Println("TODO                          WIP                           DONE")
-			c.Println("Task 1                        Task 3")
-			c.Println("Task 2")
+			board := getBoard(todoTasks, wipTasks, doneTasks)
+			c.Println(board)
+		},
+	})
+
+	shell.AddCmd(&ishell.Cmd{
+		Name: "remove-task",
+		Help: "Muestra el tablero con las tareas por columna",
+		Func: func(c *ishell.Context) {
+			//boardManager.RemoveTask(task,status)
 		},
 	})
 
@@ -71,9 +86,34 @@ func main() {
 	shell.Run()
 }
 
-func setupSampleTasks(boardManager *domain.BoardManager) {
-	boardManager = domain.NewBoardManager()
-	/*	boardManager.AddTask("Task 1", "TODO")
-		boardManager.AddTask("Task 2", "TODO")
-		boardManager.AddTask("Task 3", "WIP")*/
+func getBoard(todoTasks, wipTasks, doneTasks []string) string {
+	board := "|TODO                          |WIP                           |DONE                          |\n"
+
+	maxLength := len(todoTasks)
+	if len(wipTasks) > maxLength {
+		maxLength = len(wipTasks)
+	}
+	if len(doneTasks) > maxLength {
+		maxLength = len(doneTasks)
+	}
+
+	for i := 0; i < maxLength; i++ {
+		board += "|"
+		board += getLine(todoTasks, i)
+		board += "|"
+		board += getLine(wipTasks, i)
+		board += "|"
+		board += getLine(doneTasks, i)
+		board += "|\n"
+	}
+
+	return board
+}
+
+func getLine(tasks []string, i int) string {
+	if len(tasks) <= i {
+		return "                              "
+	} else {
+		return fmt.Sprintf("%-30v", tasks[i])
+	}
 }
