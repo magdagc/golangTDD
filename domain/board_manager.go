@@ -7,7 +7,51 @@ type BoardManager struct {
 
 // NewBoardManager returns a pointer to an empty declared BoardManager
 func NewBoardManager() *BoardManager {
-	tasks := make(map[string][]string, 0)
+	tasks := map[string][]string{
+		"TODO": make([]string, 0),
+		"WIP":  make([]string, 0),
+		"DONE": make([]string, 0),
+	}
+	return &BoardManager{Tasks: tasks}
+}
+
+// NewBoardManagerCap10 returns a pointer to an empty declared BoardManager with capacity for 10 tasks in each status
+func NewBoardManagerCap10() *BoardManager {
+	tasks := map[string][]string{
+		"TODO": make([]string, 0, 10),
+		"WIP":  make([]string, 0, 10),
+		"DONE": make([]string, 0, 10),
+	}
+	return &BoardManager{Tasks: tasks}
+}
+
+// NewBoardManagerCap100 returns a pointer to an empty declared BoardManager with capacity for 100 tasks in each status
+func NewBoardManagerCap100() *BoardManager {
+	tasks := map[string][]string{
+		"TODO": make([]string, 0, 100),
+		"WIP":  make([]string, 0, 100),
+		"DONE": make([]string, 0, 100),
+	}
+	return &BoardManager{Tasks: tasks}
+}
+
+// NewBoardManagerCap1000 returns a pointer to an empty declared BoardManager with capacity for 1000 tasks in each status
+func NewBoardManagerCap1000() *BoardManager {
+	tasks := map[string][]string{
+		"TODO": make([]string, 0, 1000),
+		"WIP":  make([]string, 0, 1000),
+		"DONE": make([]string, 0, 1000),
+	}
+	return &BoardManager{Tasks: tasks}
+}
+
+// NewBoardManagerCap10000 returns a pointer to an empty declared BoardManager with capacity for 10 tasks in each status
+func NewBoardManagerCap10000() *BoardManager {
+	tasks := map[string][]string{
+		"TODO": make([]string, 0, 1000),
+		"WIP":  make([]string, 0, 1000),
+		"DONE": make([]string, 0, 1000),
+	}
 	return &BoardManager{Tasks: tasks}
 }
 
