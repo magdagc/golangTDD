@@ -1,8 +1,9 @@
 package domain
 
 import (
-	"github.com/magiconair/properties/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestBoardManagerAddTaskShouldAddAsTODO(t *testing.T) {
